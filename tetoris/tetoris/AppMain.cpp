@@ -67,7 +67,31 @@ int WINAPI WinMain(_In_ HINSTANCE hinstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetFontSize(FONT_SIZE);
 
 	//ゲームループ
-	//Dxライブラリの初期化処理
+	While(ProcessMessage() == 0 && GetExitButton() != TRUE && ErrorCheck() == D_NORMALITY)
+
+	{
+		//フレーム制御機能更新処理
+			FreamControl_Update();
+
+		//画面の初期化
+			ClearDrawScreen();
+
+		//入力制御機能更新処理
+			InputControl_Updat();
+
+		//シーン管理機能更新処理
+			SceneManager_Update();
+		
+		//シーン管理機能描画処理
+			SceneManager_Draw();
+
+		//裏画面の内容を表画面に反映
+			Screenflip();
+	}
+		//Dxライブラリの初期化処理
+	
+		
+	
 	if (DxLib_Init() == -1)
 	{
 		return-1;
