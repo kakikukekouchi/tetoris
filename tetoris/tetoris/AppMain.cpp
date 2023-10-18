@@ -89,13 +89,16 @@ int WINAPI WinMain(_In_ HINSTANCE hinstance, _In_opt_ HINSTANCE hPrevInstance, _
 			Screenflip();
 	}
 		//Dxライブラリの初期化処理
-	
-		
+
 	
 	if (DxLib_Init() == -1)
 	{
+		//エラー終了
 		return-1;
 	}
+	//フレーム制御機能初期化処理
+	FreamControl_Initialize(E_TITLE);
+
 
 	//入力待機
 	WaitKey();
