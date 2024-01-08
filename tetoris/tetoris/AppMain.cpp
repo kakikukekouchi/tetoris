@@ -1,42 +1,37 @@
-/*******************************************
-*プログラミング実習(テトリス編)
-********************************************/
+/*****************************
+*プログラミング実習（テトリス編）
+*****************************/
 #include "DxLib.h"
 #include "FreamControl.h"
 #include "SceneManager.h"
 #include "InputControl.h"
 
-/******************************************
+/******************************
 *マクロ定義
-*******************************************/
+******************************/
 #define SCREEN_HEIGHT (720)
-#define SCREEN_WIDTH (1280)
-#define SCREEN_COLORBIT  (32)
-#define FONT_SIZE (20)
+#define SCREEN_WIDTH  (1280)
+#define SCREEN_COLORBIT (32)
+#define FONT_SIZE        (20)
 
-/******************************************
+/******************************
 *型定義
-*******************************************/
+******************************/
 
-
-/******************************************
+/*****************************
 *グローバル変数宣言
-*******************************************/
+*****************************/
 
-
-/******************************************
+/*****************************
 *プロトタイプ宣言
-*******************************************/
+*****************************/
 
-
-/******************************************
+/*****************************
 *プログラムの開始
-*******************************************/
-
-int WINAPI WinMain(_In_ HINSTANCE hinstance, _In_opt_ HINSTANCE hPrevInstance, _In_
-	LPSTR lpCmdLine, _In_ int nShowCmd)
+*****************************/
+int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
-	//タイトルを設定
+	//タイトルを変更
 	SetMainWindowText("テトリス");
 
 	//ウィンドウモードで起動
@@ -45,10 +40,11 @@ int WINAPI WinMain(_In_ HINSTANCE hinstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//ウィンドウサイズの決定
 	SetGraphMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_COLORBIT);
 
+	//DXライブラリの初期化処理
 	if (DxLib_Init() == -1)
 	{
 		//エラー終了
-		return-1;
+		return -1;
 	}
 
 	//フレーム制御機能初期化処理
@@ -67,45 +63,30 @@ int WINAPI WinMain(_In_ HINSTANCE hinstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetFontSize(FONT_SIZE);
 
 	//ゲームループ
-	While(ProcessMessage() == 0 && GetExitButton() != TRUE && ErrorCheck() == D_NORMALITY)
-
+	while (ProcessMessage() == 0 && GetExitButton() != TRUE && ErrorCheck() == D_NORMALITY)
 	{
 		//フレーム制御機能更新処理
-			FreamControl_Update();
+		FreamControl_Update();
 
 		//画面の初期化
-			ClearDrawScreen();
+		ClearDrawScreen();
 
 		//入力制御機能更新処理
-			InputControl_Updat();
+		InputControl_Update();
 
 		//シーン管理機能更新処理
-			SceneManager_Update();
-		
+		SceneManager_Update();
+
 		//シーン管理機能描画処理
-			SceneManager_Draw();
+		SceneManager_Draw();
 
 		//裏画面の内容を表画面に反映
-			Screenflip();
+		ScreenFlip();
 	}
-		//Dxライブラリの初期化処理
 
-	
-	if (DxLib_Init() == -1)
-	{
-		//エラー終了
-		return-1;
-	}
-	//フレーム制御機能初期化処理
-	FreamControl_Initialize(E_TITLE);
-
-
-	//入力待機
-	WaitKey();
-
-	//Dxライブラリ使用の終了処理
+	//DXライブラリ使用の終了処理
 	DxLib_End();
 
+	// フトの終了
 	return 0;
-
 }
